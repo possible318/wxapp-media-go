@@ -1,10 +1,10 @@
 package routers
 
 import (
+	"net/http"
+
 	"github.com/beego/beego/v2/server/web"
 	"github.com/beego/beego/v2/server/web/filter/cors"
-
-	"net/http"
 )
 
 func init() {

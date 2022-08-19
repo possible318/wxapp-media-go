@@ -4,7 +4,7 @@ import (
 	bm "media/models/base"
 	"media/models/db"
 	"media/outputs"
-	"media/servers/base"
+	bs "media/servers/base"
 	"media/utils"
 	"sort"
 	"strings"
@@ -14,7 +14,7 @@ import (
 var blogSvc *BlogSvc
 
 type BlogSvc struct {
-	base.Service
+	bs.Service
 }
 
 func GetBlogSvc() *BlogSvc {

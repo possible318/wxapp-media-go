@@ -1,11 +1,11 @@
 package utils
 
 import (
-	"github.com/beego/beego/v2/adapter/logs"
-	"github.com/gomodule/redigo/redis"
-
 	"fmt"
 	"strconv"
+
+	"github.com/beego/beego/v2/adapter/logs"
+	"github.com/gomodule/redigo/redis"
 )
 
 var (

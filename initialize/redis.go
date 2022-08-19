@@ -1,12 +1,12 @@
 package initialize
 
 import (
+	"media/utils"
+	"time"
+
 	"github.com/beego/beego/v2/adapter/logs"
 	"github.com/beego/beego/v2/server/web"
 	"github.com/gomodule/redigo/redis"
-	_ "media/routers"
-	"media/utils"
-	"time"
 )
 
 func RegisterRedis() {

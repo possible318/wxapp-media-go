@@ -1,10 +1,13 @@
 package main
 
 import (
+	"media/initialize"
+	_ "media/routers"
+	"net/http"
+
 	"github.com/beego/beego/v2/adapter/logs"
 	"github.com/beego/beego/v2/server/web"
-	"media/initialize"
-	"net/http"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 // 初始化
@@ -16,7 +19,6 @@ func init() {
 	initialize.RegisterRedis()
 	// 注册日志服务
 	initialize.RegisterLog()
-
 	logs.Info("Library Init End")
 }
 

@@ -4,7 +4,7 @@ import (
 	bm "media/models/base"
 	"media/models/db"
 	"media/outputs"
-	"media/servers/base"
+	bs "media/servers/base"
 	"media/utils"
 	"sort"
 	"strconv"
@@ -15,7 +15,7 @@ import (
 var wbService *WbService
 
 type WbService struct {
-	base.Service
+	bs.Service
 }
 
 func GetWbService() *WbService {
