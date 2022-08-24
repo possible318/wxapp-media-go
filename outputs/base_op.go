@@ -1,7 +1,8 @@
 package outputs
 
 type URLItem struct {
-	Name string `json:"name"`
+	Pid  string `json:"pid"`
+	Text string `json:"text"`
 	Src  string `json:"src"`
 }
 

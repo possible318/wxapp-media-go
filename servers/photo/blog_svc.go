@@ -77,7 +77,8 @@ func (f BlogSvc) buildBlogList(key string, ctx *bm.AppContext) interface{} {
 			item.Text = i.Text
 			item.AddTime = i.AddTime
 			urlItem := new(outputs.URLItem)
-			urlItem.Name = i.Pid
+			urlItem.Pid = i.Pid
+			urlItem.Text = i.Pid
 			urlItem.Src = i.Src
 			picList = append(picList, *urlItem)
 		}
@@ -120,7 +121,8 @@ func (f BlogSvc) buildRecommend(key string, ctx *bm.AppContext) interface{} {
 	res := make([]*outputs.URLItem, 0)
 	for _, blog := range blogList {
 		item := new(outputs.URLItem)
-		item.Name = blog.Pid
+		item.Pid = blog.Pid
+		item.Text = blog.Text
 		item.Src = blog.Src
 		res = append(res, item)
 	}
@@ -158,7 +160,7 @@ func (f BlogSvc) buildIndexMedia(key string, ctx *bm.AppContext) interface{} {
 	res := make([]*outputs.URLItem, 0)
 	for _, blog := range blogList {
 		item := new(outputs.URLItem)
-		item.Name = blog.Pid
+		item.Text = blog.Pid
 		item.Src = blog.Src
 		res = append(res, item)
 	}
@@ -167,5 +169,24 @@ func (f BlogSvc) buildIndexMedia(key string, ctx *bm.AppContext) interface{} {
 	cache.ExpireAt = time.Now().Unix() + 60
 	cache.RebuildAt = time.Now().Unix() + 30
 	f.PutToCache(key, cache, 60, ctx)
+	return res
+}
+
+func (f BlogSvc) GetPhotos(ctx *bm.AppContext, page int) interface{} {
+	// 每页10张
+	offset := page * 10
+	// 获取数据
+	blogList := make([]*db.Blog, 0)
+	model := new(db.Blog)
+	_, _ = model.GetQuery().Limit(10, offset).All(&blogList)
+
+	res := make([]*outputs.URLItem, 0)
+	for _, blog := range blogList {
+		item := new(outputs.URLItem)
+		item.Pid = blog.Pid
+		// item.Text = blog.Text
+		item.Src = blog.Src
+		res = append(res, item)
+	}
 	return res
 }

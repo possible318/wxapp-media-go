@@ -61,7 +61,8 @@ func (f WbService) buildWbPhoto(key string, ctx *bm.AppContext) interface{} {
 			item.Text = i.Text
 			item.AddTime = i.AddTime
 			urlItem := new(outputs.URLItem)
-			urlItem.Name = i.Pid
+			urlItem.Pid = i.Pid
+			urlItem.Text = i.Text
 			urlItem.Src = i.Src
 			picList = append(picList, *urlItem)
 		}

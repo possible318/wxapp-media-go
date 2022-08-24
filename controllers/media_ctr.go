@@ -46,3 +46,13 @@ func (f MediaController) IndexMedia() {
 	res := svc.GetIndexMedia(cxt)
 	f.Response(0, "success", res, 0)
 }
+
+// Photos 获取图片每次10张
+func (f MediaController) Photos() {
+	// 翻页字段
+	page, _ := f.GetInt("page", 1)
+	cxt := f.GetContext()
+	svc := photo.GetBlogSvc()
+	res := svc.GetPhotos(cxt, page)
+	f.Response(0, "success", res, 0)
+}

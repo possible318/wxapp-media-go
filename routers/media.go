@@ -14,4 +14,5 @@ func init() {
 	web.Router("/blog_list", &controllers.MediaController{}, "Get:BlogList")
 	web.Router("/recommend", &controllers.MediaController{}, "Get:Recommend")
 	web.Router("/index_media", &controllers.MediaController{}, "Get:IndexMedia")
+	web.Router("/photos", &controllers.MediaController{}, "GET:Photos")
 }
