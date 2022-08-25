@@ -7,6 +7,13 @@ import (
 )
 
 func init() {
+	// 管理
+	web.Router("/manage/media/download", &controllers.ManageController{}, "Get:Download")
+	web.Router("/manage/media/same", &controllers.ManageController{}, "Get:GetSame")
+	web.Router("/manage/media/img_msg", &controllers.ManageController{}, "Get:ImgMsg")
+	web.Router("/manage/media/img_by_item", &controllers.ManageController{}, "Get:GetImgByItemID")
+	web.Router("/manage/media/small_img", &controllers.ManageController{}, "Get:GetSmallImg")
+
 	// 业务
 	web.Router("/wb", &controllers.MediaController{}, "Get:GetWb")
 	web.Router("/demo", &controllers.MediaController{}, "Get:Demo")

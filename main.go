@@ -1,6 +1,8 @@
 package main
 
 import (
+	_ "image/jpeg"
+	_ "image/png"
 	"media/initialize"
 	_ "media/routers"
 	"net/http"

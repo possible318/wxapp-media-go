@@ -180,13 +180,14 @@ func (f BlogSvc) GetPhotos(ctx *bm.AppContext, page int) interface{} {
 	blogList := make([]*db.Blog, 0)
 	model := new(db.Blog)
 	count, _ := model.GetQuery().Count()
-	_, _ = model.GetQuery().Limit(10, offset).All(&blogList)
+	_, _ = model.GetQuery().OrderBy("-ID").Limit(10, offset).All(&blogList)
 
 	res := make([]*outputs.URLItem, 0)
 	for _, blog := range blogList {
 		item := new(outputs.URLItem)
 		item.Pid = blog.Pid
-		// item.Text = blog.Text
+		item.Text = blog.Text
+		item.ID = blog.ID
 		item.Src = blog.Src
 		res = append(res, item)
 	}

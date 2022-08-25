@@ -1,9 +1,11 @@
 package outputs
 
 type URLItem struct {
-	Pid  string `json:"pid"`
-	Text string `json:"text"`
-	Src  string `json:"src"`
+	Pid    string `json:"pid"`
+	ID     int    `json:"id"`
+	ItemID string `json:"item_id"`
+	Text   string `json:"text"`
+	Src    string `json:"src"`
 }
 
 type PicItem struct {
