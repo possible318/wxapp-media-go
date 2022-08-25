@@ -1,6 +1,7 @@
 package photo
 
 import (
+	"math"
 	bm "media/models/base"
 	"media/models/db"
 	"media/outputs"
@@ -178,6 +179,7 @@ func (f BlogSvc) GetPhotos(ctx *bm.AppContext, page int) interface{} {
 	// 获取数据
 	blogList := make([]*db.Blog, 0)
 	model := new(db.Blog)
+	count, _ := model.GetQuery().Count()
 	_, _ = model.GetQuery().Limit(10, offset).All(&blogList)
 
 	res := make([]*outputs.URLItem, 0)
@@ -188,5 +190,10 @@ func (f BlogSvc) GetPhotos(ctx *bm.AppContext, page int) interface{} {
 		item.Src = blog.Src
 		res = append(res, item)
 	}
-	return res
+
+	data := make(map[string]interface{})
+	data["list"] = res
+	data["total"] = math.Ceil(float64(count) / 10.0)
+	data["page"] = page
+	return data
 }
