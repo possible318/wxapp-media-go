@@ -2,3 +2,4 @@
 /conf/dev*
 media
 go.sum
+main
