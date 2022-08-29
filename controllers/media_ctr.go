@@ -56,3 +56,25 @@ func (f MediaController) Photos() {
 	res := svc.GetPhotos(cxt, page)
 	f.Response(0, "success", res, 0)
 }
+
+// Star 点赞
+func (f MediaController) Star() {
+	ID, _ := f.GetInt("id", 1)
+	cxt := f.GetContext()
+	svc := photo.GetBlogSvc()
+	res := svc.Star(cxt, ID)
+	f.Response(0, "success", res, 0)
+}
+
+// Step 点踩
+func (f MediaController) Step() {
+	ID, _ := f.GetInt("id", 1)
+	cxt := f.GetContext()
+	svc := photo.GetBlogSvc()
+	res := svc.Step(cxt, ID)
+	msg := "失败"
+	if res {
+		msg = "成功"
+	}
+	f.Response(0, "success", msg, 0)
+}

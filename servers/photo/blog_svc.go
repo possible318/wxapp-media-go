@@ -10,6 +10,10 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/beego/beego/v2/adapter/logs"
+
+	"github.com/beego/beego/v2/client/orm"
 )
 
 var blogSvc *BlogSvc
@@ -197,4 +201,38 @@ func (f BlogSvc) GetPhotos(ctx *bm.AppContext, page int) interface{} {
 	data["total"] = math.Ceil(float64(count) / 10.0)
 	data["page"] = page
 	return data
+}
+
+// Star 点赞
+func (f BlogSvc) Star(ctx *bm.AppContext, id int) bool {
+	model := new(db.Blog)
+	info, err := model.GetById(id)
+	if err != nil {
+		logs.Error(err)
+		return false
+	}
+	info.Star += 1
+	_, err = model.GetQuery().Filter("Id", id).Update(orm.Params{"star": info.Star})
+	if err != nil {
+		logs.Error(err)
+		return false
+	}
+	return true
+}
+
+// Step 点踩
+func (f BlogSvc) Step(ctx *bm.AppContext, id int) bool {
+	model := new(db.Blog)
+	info, err := model.GetById(id)
+	if err != nil {
+		logs.Error(err)
+		return false
+	}
+	info.Star += 1
+	_, err = model.GetQuery().Filter("Id", id).Update(orm.Params{"step": info.Star})
+	if err != nil {
+		logs.Error(err)
+		return false
+	}
+	return true
 }

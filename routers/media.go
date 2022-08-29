@@ -22,4 +22,12 @@ func init() {
 	web.Router("/recommend", &controllers.MediaController{}, "Get:Recommend")
 	web.Router("/index_media", &controllers.MediaController{}, "Get:IndexMedia")
 	web.Router("/photos", &controllers.MediaController{}, "GET:Photos")
+	// 点赞
+	web.Router("/star", &controllers.MediaController{}, "GET:Star")
+	// 点踩
+	web.Router("/step", &controllers.MediaController{}, "GET:Step")
+	// 其他
+	web.Router("/other", &controllers.MediaController{}, "GET:Other")
+	// 上传
+
 }
