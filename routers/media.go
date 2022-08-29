@@ -27,7 +27,7 @@ func init() {
 	// 点踩
 	web.Router("/step", &controllers.MediaController{}, "GET:Step")
 	// 其他
-	web.Router("/other", &controllers.MediaController{}, "GET:Other")
+	//web.Router("/other", &controllers.MediaController{}, "GET:Other")
 	// 上传
 
 }

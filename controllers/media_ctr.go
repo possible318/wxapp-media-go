@@ -59,19 +59,19 @@ func (f MediaController) Photos() {
 
 // Star 点赞
 func (f MediaController) Star() {
-	ID, _ := f.GetInt("id", 1)
-	cxt := f.GetContext()
+	ID, _ := f.GetInt("id", 0)
+	//cxt := f.GetContext()
 	svc := photo.GetBlogSvc()
-	res := svc.Star(cxt, ID)
+	res := svc.Star(ID)
 	f.Response(0, "success", res, 0)
 }
 
 // Step 点踩
 func (f MediaController) Step() {
-	ID, _ := f.GetInt("id", 1)
-	cxt := f.GetContext()
+	ID, _ := f.GetInt("id", 0)
+	//cxt := f.GetContext()
 	svc := photo.GetBlogSvc()
-	res := svc.Step(cxt, ID)
+	res := svc.Step(ID)
 	msg := "失败"
 	if res {
 		msg = "成功"

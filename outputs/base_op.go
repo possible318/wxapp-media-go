@@ -8,14 +8,22 @@ type URLItem struct {
 	Src    string `json:"src"`
 }
 
+type SrcList []URLItem
+
 type PicItem struct {
-	ID      string    `json:"id"`
-	Text    string    `json:"text"`
-	AddTime string    `json:"add_time"`
-	SrcList []URLItem `json:"src_list"`
+	ID      string  `json:"id"`
+	Text    string  `json:"text"`
+	AddTime string  `json:"add_time"`
+	SrcList SrcList `json:"src_list"`
 }
 
 type PicItemList []PicItem
+
+type PhotoOpt struct {
+	Page  int       `json:"page"`
+	Total int       `json:"total"`
+	List  []URLItem `json:"list"`
+}
 
 func (a PicItemList) Len() int {
 	return len(a)
