@@ -13,9 +13,10 @@ import (
 	"time"
 
 	"github.com/beego/beego/v2/adapter/logs"
-
 	"github.com/beego/beego/v2/client/orm"
 )
+
+//import "github.com/qiniu/go-sdk/v7"
 
 var blogSvc *BlogSvc
 
@@ -261,4 +262,29 @@ func (f BlogSvc) Step(id int) bool {
 		return false
 	}
 	return true
+}
+
+// Upload 上传图片到七牛云
+func (f BlogSvc) Upload() string {
+	//	// 获取文件名
+	//	fileName := file.Filename
+	//	//// 获取文件后缀
+	//	ext := path.Ext(fileName)
+	//	// 文件名
+	//	name := utils.GetRandomString(10) + ext
+	//	// 文件路径
+	//	filePath := "blog/" + name
+	//	// 文件内容
+	//	fileContent, err := file.Open()
+	//	if err != nil {
+	//		return "", err
+	//	}
+	//	defer fileContent.Close()
+	//	// 上传到七牛云
+	//	err = f.uploadToQiniu(fileContent, filePath)
+	//	if err != nil {
+	//		return "", err
+	//	}
+	//	return filePath, nil
+	return ""
 }
