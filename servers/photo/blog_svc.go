@@ -264,27 +264,29 @@ func (f BlogSvc) Step(id int) bool {
 	return true
 }
 
-// Upload 上传图片到七牛云
-func (f BlogSvc) Upload() string {
-	//	// 获取文件名
-	//	fileName := file.Filename
-	//	//// 获取文件后缀
-	//	ext := path.Ext(fileName)
-	//	// 文件名
-	//	name := utils.GetRandomString(10) + ext
-	//	// 文件路径
-	//	filePath := "blog/" + name
-	//	// 文件内容
-	//	fileContent, err := file.Open()
-	//	if err != nil {
-	//		return "", err
-	//	}
-	//	defer fileContent.Close()
-	//	// 上传到七牛云
-	//	err = f.uploadToQiniu(fileContent, filePath)
-	//	if err != nil {
-	//		return "", err
-	//	}
-	//	return filePath, nil
-	return ""
+// QiNiuToken 上传图片到七牛云
+func (f BlogSvc) QiNiuToken(ctx *bm.AppContext) string {
+	var res string
+	key := "Blog:Media:QiNiuToken"
+	var cache bm.CacheData
+	if f.ExistInCache(key, ctx) {
+		cache.Data = &res
+		err := f.GetFromCache(key, &cache, ctx)
+		if err != nil {
+			res = utils.GetSimpleToken()
+			cache := new(bm.CacheData)
+			cache.Data = res
+			cache.ExpireAt = time.Now().Unix() + 3700
+			cache.RebuildAt = time.Now().Unix() + 3600
+			f.PutToCache(key, cache, 3600, ctx)
+		}
+	} else {
+		res = utils.GetSimpleToken()
+		cache := new(bm.CacheData)
+		cache.Data = res
+		cache.ExpireAt = time.Now().Unix() + 3700
+		cache.RebuildAt = time.Now().Unix() + 3600
+		f.PutToCache(key, cache, 3600, ctx)
+	}
+	return res
 }

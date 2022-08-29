@@ -21,6 +21,10 @@ func init() {
 	web.Router("/blog_list", &controllers.MediaController{}, "Get:BlogList")
 	web.Router("/recommend", &controllers.MediaController{}, "Get:Recommend")
 	web.Router("/index_media", &controllers.MediaController{}, "Get:IndexMedia")
+
+	// 七牛上传token
+	web.Router("/token", &controllers.MediaController{}, "Get:QiNiuToken")
+	// 相册列表
 	web.Router("/photos", &controllers.MediaController{}, "GET:Photos")
 	// 点赞
 	web.Router("/star", &controllers.MediaController{}, "GET:Star")

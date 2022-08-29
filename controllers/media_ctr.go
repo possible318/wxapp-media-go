@@ -78,3 +78,11 @@ func (f MediaController) Step() {
 	}
 	f.Response(0, "success", msg, 0)
 }
+
+// QiNiuToken  七牛上传token
+func (f MediaController) QiNiuToken() {
+	cxt := f.GetContext()
+	svc := photo.GetBlogSvc()
+	res := svc.QiNiuToken(cxt)
+	f.Response(0, "success", res, 0)
+}
