@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"media/servers/manage"
+	"media/services/manage"
 )
 
 type ManageController struct {

@@ -4,45 +4,46 @@ import (
 	bm "media/models/base"
 	"media/models/db"
 	"media/outputs"
-	bs "media/servers/base"
+	bs "media/services/base"
 	"media/utils"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 )
 
-var blService *BlService
+var wbService *WbService
 
-type BlService struct {
+type WbService struct {
 	bs.Service
 }
 
-func GetBlService() *BlService {
-	if blService == nil {
-		blService = new(BlService)
+func GetWbService() *WbService {
+	if wbService == nil {
+		wbService = new(WbService)
 	}
-	return blService
+	return wbService
 }
 
-func (f BlService) GetWbPhoto(ctx *bm.AppContext) interface{} {
+func (f WbService) GetWbPhoto(ctx *bm.AppContext) interface{} {
 	var res interface{}
-	key := "photo:bl:list:" + strconv.Itoa(ctx.Format) + ":" + ctx.App + ":" + ctx.Lang + ":" + ctx.Env
+	key := "photo::list:" + strconv.Itoa(ctx.Format) + ":" + ctx.App + ":" + ctx.Lang + ":" + ctx.Env
 	var cache bm.CacheData
 	if f.ExistInCache(key, ctx) {
 		cache.Data = &res
 		err := f.GetFromCache(key, &cache, ctx)
 		if err != nil {
-			res = f.buildBlPhoto(key, ctx)
+			res = f.buildWbPhoto(key, ctx)
 		} else if cache.IsNeedRebuild() && utils.LockByRedis(key+":lock", 2) {
-			go f.buildBlPhoto(key, ctx)
+			go f.buildWbPhoto(key, ctx)
 		}
 	} else {
-		res = f.buildBlPhoto(key, ctx)
+		res = f.buildWbPhoto(key, ctx)
 	}
 	return res
 }
 
-func (f BlService) buildBlPhoto(key string, ctx *bm.AppContext) interface{} {
+func (f WbService) buildWbPhoto(key string, ctx *bm.AppContext) interface{} {
 	orm := new(db.WbPhoto)
 	ormList := make([]*db.WbPhoto, 0)
 	_, _ = orm.GetQuery().OrderBy("-AddTime").All(&ormList)
@@ -76,4 +77,21 @@ func (f BlService) buildBlPhoto(key string, ctx *bm.AppContext) interface{} {
 	cache.RebuildAt = time.Now().Unix() + 30
 	f.PutToCache(key, cache, 60, ctx)
 	return itemList
+}
+
+func (f WbService) Demo() interface{} {
+	model := new(db.WbPhoto)
+	itemList := make([]*db.WbPhoto, 0)
+	_, _ = model.GetQuery().All(&itemList, "ItemID", "Text")
+	itemMap := make(map[string]string)
+	for _, item := range itemList {
+		flag := strings.Contains(item.Text, "<a")
+		if !flag {
+			continue
+		}
+		itemMap[item.ItemID] = item.Text
+		// itemId := strings.Split(item.(string), "_-_")
+		// _, _ = model.GetQuery().Filter("ItemID", item).Update(orm.Params{"item_id": itemId[1]})
+	}
+	return itemMap
 }

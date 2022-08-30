@@ -1,6 +1,6 @@
 package controllers
 
-import "media/servers/photo"
+import "media/services/photo"
 
 type MediaController struct {
 	BaseController
@@ -14,9 +14,8 @@ func (f MediaController) GetWb() {
 }
 
 func (f MediaController) Demo() {
-	ctx := f.GetContext()
 	svc := photo.GetWbService()
-	res := svc.Demo(ctx)
+	res := svc.Demo()
 	f.Response(0, "success", res, 0)
 }
 

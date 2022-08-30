@@ -4,7 +4,7 @@ import (
 	"image"
 	"media/models/db"
 	"media/outputs"
-	"media/servers/base"
+	"media/services/base"
 	"os"
 	"strconv"
 	"strings"
