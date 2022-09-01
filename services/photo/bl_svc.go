@@ -3,8 +3,8 @@ package photo
 import (
 	bm "media/models/base"
 	"media/models/db"
-	"media/outputs"
 	bs "media/services/base"
+	"media/types"
 	"media/utils"
 	"sort"
 	"strconv"
@@ -51,15 +51,15 @@ func (f BlService) buildBlPhoto(key string, ctx *bm.AppContext) interface{} {
 		picMap[item.ItemID] = append(picMap[item.ItemID], item)
 	}
 
-	itemList := make([]outputs.PicItem, 0)
+	itemList := make([]types.PicItem, 0)
 	for k, v := range picMap {
-		item := new(outputs.PicItem)
+		item := new(types.PicItem)
 		item.ID = k
-		picList := make([]outputs.URLItem, 0)
+		picList := make([]types.URLItem, 0)
 		for _, i := range v {
 			item.Text = i.Text
 			item.AddTime = i.AddTime
-			urlItem := new(outputs.URLItem)
+			urlItem := new(types.URLItem)
 			urlItem.Pid = i.Pid
 			urlItem.Text = i.Text
 			urlItem.Src = i.Src
@@ -68,7 +68,7 @@ func (f BlService) buildBlPhoto(key string, ctx *bm.AppContext) interface{} {
 		item.SrcList = picList
 		itemList = append(itemList, *item)
 	}
-	sort.Sort(outputs.PicItemList(itemList))
+	sort.Sort(types.PicItemList(itemList))
 
 	cache := new(bm.CacheData)
 	cache.Data = itemList

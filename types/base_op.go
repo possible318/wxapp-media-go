@@ -1,11 +1,13 @@
-package outputs
+package types
 
 type URLItem struct {
-	Pid    string `json:"pid"`
-	ID     int    `json:"id"`
-	ItemID string `json:"item_id"`
-	Text   string `json:"text"`
-	Src    string `json:"src"`
+	Pid     string `json:"pid"`
+	ID      int    `json:"id"`
+	ItemID  string `json:"item_id"`
+	Text    string `json:"text"`
+	Src     string `json:"src"`
+	Like    int    `json:"like"`
+	Dislike int    `json:"dislike"`
 }
 
 type SrcList []URLItem
@@ -17,13 +19,13 @@ type PicItem struct {
 	SrcList SrcList `json:"src_list"`
 }
 
-type PicItemList []PicItem
-
 type PhotoOpt struct {
 	Page  int       `json:"page"`
 	Total int       `json:"total"`
 	List  []URLItem `json:"list"`
 }
+
+type PicItemList []PicItem
 
 func (a PicItemList) Len() int {
 	return len(a)

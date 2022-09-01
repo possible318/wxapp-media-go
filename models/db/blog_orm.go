@@ -22,8 +22,8 @@ type Blog struct {
 	Index    int    `json:"index"`
 	Height   string `json:"height"`
 	Width    string `json:"width"`
-	Star     int    `json:"star"`
-	Step     int    `json:"step"`
+	Like     int    `json:"like"`
+	Dislike  int    `json:"dislike"`
 	Status   int    `json:"status"`
 }
 

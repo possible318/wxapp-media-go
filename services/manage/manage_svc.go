@@ -3,8 +3,8 @@ package manage
 import (
 	"image"
 	"media/models/db"
-	"media/outputs"
 	"media/services/base"
+	"media/types"
 	"os"
 	"strconv"
 	"strings"
@@ -87,9 +87,9 @@ func (f MediaSvc) GetImgByItemID(itemID string) interface{} {
 	blogList := make([]*db.Blog, 0)
 	_, _ = blogOrm.GetQuery().Filter("ItemId", itemID).All(&blogList)
 
-	itemList := make([]outputs.URLItem, 0)
+	itemList := make([]types.URLItem, 0)
 	for _, blog := range blogList {
-		item := outputs.URLItem{
+		item := types.URLItem{
 			Pid: blog.Pid,
 			Src: blog.Src,
 		}
@@ -103,9 +103,9 @@ func (f MediaSvc) GetSmallImg() interface{} {
 	blogList := make([]*db.Blog, 0)
 	_, _ = blogOrm.GetQuery().Filter("Width__lt", 800).OrderBy("Width").All(&blogList)
 
-	itemList := make([]outputs.URLItem, 0)
+	itemList := make([]types.URLItem, 0)
 	for _, blog := range blogList {
-		item := outputs.URLItem{
+		item := types.URLItem{
 			ID:     blog.ID,
 			ItemID: blog.ItemID,
 			Pid:    blog.Pid,
