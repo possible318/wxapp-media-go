@@ -45,7 +45,7 @@ func (f BlService) GetWbPhoto(ctx *bm.AppContext) interface{} {
 func (f BlService) buildBlPhoto(key string, ctx *bm.AppContext) interface{} {
 	orm := new(db.WbPhoto)
 	ormList := make([]*db.WbPhoto, 0)
-	_, _ = orm.GetQuery().OrderBy("-AddTime").All(&ormList)
+	_, _ = orm.GetQuery().OrderBy("-Id").All(&ormList)
 	picMap := make(map[string][]*db.WbPhoto)
 	for _, item := range ormList {
 		picMap[item.ItemID] = append(picMap[item.ItemID], item)

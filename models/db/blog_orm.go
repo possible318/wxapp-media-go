@@ -16,10 +16,6 @@ type Blog struct {
 	Text     string `json:"text"`
 	Pid      string `json:"pid"`
 	Src      string `json:"src"`
-	AddTime  string `json:"add_time"`
-	ShowType int    `json:"show_type"`
-	Deleted  int    `json:"deleted"`
-	Index    int    `json:"index"`
 	Height   string `json:"height"`
 	Width    string `json:"width"`
 	Like     int    `json:"like"`

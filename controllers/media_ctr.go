@@ -26,16 +26,18 @@ func (f MediaController) Photos() {
 // Like 喜欢
 func (f MediaController) Like() {
 	ID, _ := f.GetInt("id", 0)
-	//cxt := f.GetContext()
 	svc := photo.GetBlogSvc()
 	res := svc.Like(ID)
-	f.Response(0, "success", res, 0)
+	msg := "失败"
+	if res {
+		msg = "成功"
+	}
+	f.Response(0, "success", msg, 0)
 }
 
 // Dislike 不喜欢
 func (f MediaController) Dislike() {
 	ID, _ := f.GetInt("id", 0)
-	//cxt := f.GetContext()
 	svc := photo.GetBlogSvc()
 	res := svc.Dislike(ID)
 	msg := "失败"
